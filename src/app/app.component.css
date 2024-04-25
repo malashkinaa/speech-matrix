@@ -1,0 +1,13 @@
+main {
+    display: flex;
+}
+
+article {
+    flex: 1;
+    background-color: grey;
+}
+
+nav {
+    flex: 1;
+    background-color: beige;
+}
