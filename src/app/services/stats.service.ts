@@ -40,12 +40,13 @@ export class StatsService {
   getIdByMediaId(mediaId: string): Observable<string> {
     console.log('getIdByMediaId', mediaId);
     try {
+      console.log(`${env.s2tServiceURL}/transcripts/GetIdByMediaId/${mediaId}`);
       return this.http.get(
         `${env.s2tServiceURL}/transcripts/GetIdByMediaId/${mediaId}`,
         { responseType: 'text' }
       );
     } catch (error) {
-      console.log('getIdByMediaId', error);
+      console.log('getIdByMediaId error', error);
       return of('');
     }
   }

@@ -3,6 +3,7 @@ import { StatsService } from '../services/stats.service';
 import { Transcript } from '../interfaces/trancript';
 import { SignalRService } from '../services/signalr.service';
 import { SharedDataService } from '../services/shared-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -16,10 +17,23 @@ export class TaskComponent {
   constructor(
     private statsService: StatsService,
     private signalRService: SignalRService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private route: ActivatedRoute
   ){}
   url: string = '';
-  addTask() {
+  externalVParam = '';
+  // ngOnInit() {
+  //   this.route.queryParamMap.subscribe((params) => {
+  //     const vParam = params.get('v');
+  //     if (vParam) {
+  //       this.externalVParam = vParam;
+  //       this.url = `https://www.youtube.com/watch?v=${vParam}`;
+  //       this.addTask();
+  //     }
+  //   });
+  // }
+  addTask(url: string) {
+    this.url = url;
     this.setEmptyStatsSummary(this.url);
     console.log('addTask', this.url);
     this.statsService

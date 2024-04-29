@@ -1,3 +1,3 @@
 <label for="link">Search</label>
-<input id="link" placeholder="youtude video link">
-<button (click)="addTask()">Submit</button>
+<input id="link" placeholder="youtude video link" #videolink>
+<button (click)="addTask(videolink.value)">Submit</button>
