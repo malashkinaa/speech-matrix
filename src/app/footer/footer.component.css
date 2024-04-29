@@ -1,4 +1,6 @@
-p{
-    background-color: aqua;
-    
+div {
+    background-color: #2C3D50;
+    text-align: center;
+    color: white;
+    padding: 20px 0; 
 }
