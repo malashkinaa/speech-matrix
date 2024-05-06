@@ -3,6 +3,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { WordListComponent } from '../word-list/word-list.component';
 import { WordUsageComponent } from '../word-usage/word-usage.component';
 import { SharedDataService } from '../services/shared-data.service';
+import { ListItem } from '../interfaces/listitem';
 
 @Component({
     selector: 'app-right-panel',
@@ -14,8 +15,9 @@ import { SharedDataService } from '../services/shared-data.service';
 
 export class RightPanelComponent {
   constructor(private sharedDataService: SharedDataService) {}
-  words: any[] = [];
-  filteredWords: any[] = [];
+  words: ListItem[] = [];
+  filteredWords: ListItem[] = [];
+  selectedWord: string = "";
   ngOnInit(): void {
     this.sharedDataService.statsSummary$.subscribe((statsSummary) => {
       console.log('WordListComponent.ngOnInit', statsSummary);
@@ -36,5 +38,8 @@ export class RightPanelComponent {
     else {
       this.filteredWords = [];
     }
+  }
+  onWordSelected(word: string){
+    this.selectedWord = word
   }
 }

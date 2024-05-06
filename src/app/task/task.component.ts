@@ -38,7 +38,7 @@ export class TaskComponent {
     console.log('addTask', this.url);
     this.statsService
       .getIdByMediaUrl(this.url) // to do: extract video id from url
-      .subscribe((id: any) => {
+      .subscribe((id: string) => {
         console.log('searchTranscript', id);
         if (id && id.length > 0) {
           this.setStatsSummary(id);

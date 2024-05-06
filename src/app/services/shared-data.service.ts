@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StatsSummary } from '../interfaces/stats';
+import { Link, StatsSummary } from '../interfaces/stats';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -12,8 +12,6 @@ export class SharedDataService {
     stats: [],
   });
   statsSummary$ = this.statsSummarySubject.asObservable();
-
-
   setStatsSummary(statsSummary: StatsSummary) {
     this.statsSummarySubject.next(statsSummary);
   }

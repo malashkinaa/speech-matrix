@@ -1,3 +1,3 @@
 <app-search-bar (filterChange)="filterWords($event)"></app-search-bar>
-<app-word-list [filteredWords]="filteredWords"></app-word-list>
-<app-word-usage></app-word-usage>
+<app-word-list [filteredWords]="filteredWords" (onWordSelected)="onWordSelected($event)"></app-word-list>
+<app-word-usage [selectedWord]="selectedWord"></app-word-usage>

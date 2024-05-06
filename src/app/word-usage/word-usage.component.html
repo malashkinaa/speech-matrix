@@ -1,1 +1,5 @@
-<p>word-usage works!</p>
+<ul>
+    <li *ngFor="let link of selectedLinks">
+        <span>{{ link.start }}</span> {{ link.text }}
+    </li>
+</ul>
