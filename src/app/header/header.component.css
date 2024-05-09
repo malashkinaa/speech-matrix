@@ -7,4 +7,13 @@ div {
 
 h1 {
     margin: 0;
+    font-family: "Rockwell", serif;
+    font-size: 25px; 
 }
+
+.logo {
+    margin-right: 10px; 
+    width: 40px; 
+    height: auto; 
+}
+
