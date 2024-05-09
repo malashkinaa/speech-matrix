@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { SharedDataService } from '../services/shared-data.service';
 import { Link, Stats, StatsSummary } from '../interfaces/stats';
 import { CommonModule } from '@angular/common';
@@ -39,5 +39,9 @@ export class WordUsageComponent {
     ?.links
     .filter(links => links !== undefined)
     .flat();
+  }
+  
+  handleLinkClick(link: Link) {
+    this.sharedDataService.setCurLink(link)
   }
 }

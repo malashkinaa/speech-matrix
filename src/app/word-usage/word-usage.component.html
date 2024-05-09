@@ -1,5 +1,7 @@
 <ul>
     <li *ngFor="let link of selectedLinks">
-        <span>{{ link.start }}</span> {{ link.text }}
+        <button (click)="handleLinkClick(link)">
+            <span >{{ link.start }}</span> {{ link.text }}
+        </button>
     </li>
 </ul>

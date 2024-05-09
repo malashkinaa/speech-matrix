@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedDataService {
+  
   private statsSummarySubject = new BehaviorSubject<StatsSummary>({
     url: '',
     stats: [],
@@ -15,9 +16,18 @@ export class SharedDataService {
   setStatsSummary(statsSummary: StatsSummary) {
     this.statsSummarySubject.next(statsSummary);
   }
+
+  private curLinkSubject = new BehaviorSubject<Link>({
+    start: 0,
+    text: '',
+  });
+  curLink$ = this.curLinkSubject.asObservable();
+  setCurLink(link: Link) {
+    console.log("SharedDataService.setCurLink", link)
+    this.curLinkSubject.next(link);
+  }
+ 
 }
-
-
 
 
 

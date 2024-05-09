@@ -4,6 +4,7 @@ import { WordListComponent } from '../word-list/word-list.component';
 import { WordUsageComponent } from '../word-usage/word-usage.component';
 import { SharedDataService } from '../services/shared-data.service';
 import { ListItem } from '../interfaces/listitem';
+import { Link } from '../interfaces/stats';
 
 @Component({
     selector: 'app-right-panel',
@@ -39,7 +40,7 @@ export class RightPanelComponent {
       this.filteredWords = [];
     }
   }
-  onWordSelected(word: string){
+  handleWordSelected(word: string){
     this.selectedWord = word
   }
 }
