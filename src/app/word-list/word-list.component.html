@@ -1,5 +1,5 @@
 <ul>
     <li *ngFor="let word of filteredWords" (click)="fillInputValue(word.id)">
-        {{ word.name }}
+        <button>{{ word.name }}</button>
     </li>
 </ul>
