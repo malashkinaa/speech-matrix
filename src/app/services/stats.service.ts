@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { StatsSummary } from '../interfaces/stats';
 import { env } from '../app.config';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -31,11 +30,12 @@ export class StatsService {
   }
   createTranscript(url: string): Observable<any> {
     console.log('createTranscript', url);
-    return this.http.post<any>(
+    let result = this.http.post<any>(
       `${env.s2tServiceURL}/transcripts`,
       { originalURL: url },
       { headers: { 'Content-Type': 'application/json' } }
     );
+    return result;
   }
   getIdByMediaId(mediaId: string): Observable<string> {
     console.log('getIdByMediaId', mediaId);

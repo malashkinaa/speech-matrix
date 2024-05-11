@@ -4,6 +4,7 @@ import { Transcript } from '../interfaces/trancript';
 import { SignalRService } from '../services/signalr.service';
 import { SharedDataService } from '../services/shared-data.service';
 import { ActivatedRoute } from '@angular/router';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-task',
@@ -18,7 +19,8 @@ export class TaskComponent {
     private statsService: StatsService,
     private signalRService: SignalRService,
     private sharedDataService: SharedDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinnerService : SpinnerService
   ){}
   url: string = '';
   externalVParam = '';
@@ -40,8 +42,10 @@ export class TaskComponent {
       .getIdByMediaUrl(this.url) // to do: extract video id from url
       .subscribe((id: string) => {
         console.log('searchTranscript', id);
+        this.spinnerService.set(true);
         if (id && id.length > 0) {
           this.setStatsSummary(id);
+          this.spinnerService.set(false);
         } else {
           this.statsService
             .createTranscript(this.url)
@@ -50,6 +54,7 @@ export class TaskComponent {
               this.signalRService.startConnection();
               this.signalRService.addMessageListener<string>((id) => {
                 this.setStatsSummary(id);
+                this.spinnerService.set(false);
               });
             });
         }

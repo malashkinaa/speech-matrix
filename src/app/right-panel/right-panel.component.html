@@ -1,3 +1,4 @@
-<app-search-bar (filterChange)="filterWords($event)"></app-search-bar>
+<app-search-bar (filterChange)="filterWords($event)" *ngIf="!isLoading"></app-search-bar>
 <app-word-list [filteredWords]="filteredWords" (onWordSelected)="handleWordSelected($event)"></app-word-list>
+<app-spinner></app-spinner>
 <app-word-usage [selectedWord]="selectedWord"></app-word-usage>
