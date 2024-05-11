@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Link, StatsSummary } from '../interfaces/stats';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -17,13 +17,9 @@ export class SharedDataService {
     this.statsSummarySubject.next(statsSummary);
   }
 
-  private curLinkSubject = new BehaviorSubject<Link>({
-    start: 0,
-    text: '',
-  });
+  private curLinkSubject = new Subject<Link>();
   curLink$ = this.curLinkSubject.asObservable();
   setCurLink(link: Link) {
-    console.log("SharedDataService.setCurLink", link)
     this.curLinkSubject.next(link);
   }
  
