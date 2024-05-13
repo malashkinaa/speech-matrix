@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { YouTubePlayer } from '@angular/youtube-player';
-import { Link } from '../interfaces/stats';
-import { SharedDataService } from '../services/shared-data.service';
+import { Link } from '../../interfaces/stats';
+import { SharedDataService } from '../../services/shared-data.service';
 
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskComponent } from '../task/task.component';
 import { YoutubeComponent } from '../youtube/youtube.component';
-import { Link, StatsSummary } from '../interfaces/stats';
-import { SharedDataService } from '../services/shared-data.service';
-import { StatsService } from '../services/stats.service';
+import { Link, StatsSummary } from '../../interfaces/stats';
+import { SharedDataService } from '../../services/shared-data.service';
+import { StatsService } from '../../services/stats.service';
 
 @Component({
   selector: 'app-left-panel',

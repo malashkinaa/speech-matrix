@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedDataService } from '../services/shared-data.service';
+import { SharedDataService } from '../../services/shared-data.service';
 
 @Component({
   selector: 'app-word-list',

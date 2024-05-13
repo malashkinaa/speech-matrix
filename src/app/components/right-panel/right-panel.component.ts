@@ -3,11 +3,11 @@ import { CommonModule, NgIf } from '@angular/common';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { WordListComponent } from '../word-list/word-list.component';
 import { WordUsageComponent } from '../word-usage/word-usage.component';
-import { SharedDataService } from '../services/shared-data.service';
-import { ListItem } from '../interfaces/listitem';
+import { SharedDataService } from '../../services/shared-data.service';
+import { ListItem } from '../../interfaces/listitem';
 import { SpinnerComponent } from "../spinner/spinner.component";
-import { SpinnerService } from '../services/spinner.service';
-import { StatsSummary } from '../interfaces/stats';
+import { SpinnerService } from '../../services/spinner.service';
+import { StatsSummary } from '../../interfaces/stats';
 
 @Component({
     selector: 'app-right-panel',
@@ -22,6 +22,7 @@ export class RightPanelComponent {
   words: ListItem[] = [];
   filteredWords: ListItem[] = [];
   selectedWord: string = "";
+  typedWord: string = "";
   isLoading: boolean = true;
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class RightPanelComponent {
     })
   }
   filterWords(input: string) {
+    this.typedWord = input
     if(this.words && input){
       this.filteredWords = this.words.filter(word => 
         word.name.toLowerCase().includes(input.toLowerCase())

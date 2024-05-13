@@ -1,6 +1,6 @@
-import { Component, Input} from '@angular/core';
-import { SharedDataService } from '../services/shared-data.service';
-import { Link, Stats, StatsSummary } from '../interfaces/stats';
+import { Component, Input, SimpleChanges} from '@angular/core';
+import { SharedDataService } from '../../services/shared-data.service';
+import { Link, Stats, StatsSummary } from '../../interfaces/stats';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class WordUsageComponent {
   constructor(private sharedDataService: SharedDataService) {}
   @Input() selectedWord: string = ""
+  @Input() typedWord: string = ""
   selectedLinks: Link[] | undefined = []
   statsSummary: StatsSummary = {
     url: '',
@@ -28,14 +29,18 @@ export class WordUsageComponent {
     });
   }
 
-  ngOnChanges(): void {
-    // todo: change only when selectedWord is changed
-    this.updateSelectedLinks(this.statsSummary);
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.selectedWord || this.typedWord){
+      this.updateSelectedLinks(this.statsSummary);
+    }
   }
-
+  
   updateSelectedLinks(statsSummary: StatsSummary) {
     this.selectedLinks = statsSummary.stats
-    .find(stats => stats.word === this.selectedWord)
+    .find(stats => {
+      return stats.word === this.selectedWord 
+     // || (this.typedWord.length > 0 && stats.links.some(link => link.text.includes(this.typedWord)));
+    })
     ?.links
     .filter(links => links !== undefined)
     .flat();

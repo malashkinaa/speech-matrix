@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { StatsService } from '../services/stats.service';
-import { Transcript } from '../interfaces/trancript';
-import { SignalRService } from '../services/signalr.service';
-import { SharedDataService } from '../services/shared-data.service';
+import { StatsService } from '../../services/stats.service';
+import { Transcript } from '../../interfaces/trancript';
+import { SignalRService } from '../../services/signalr.service';
+import { SharedDataService } from '../../services/shared-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { SpinnerService } from '../services/spinner.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'app-task',

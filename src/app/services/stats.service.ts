@@ -58,7 +58,13 @@ export class StatsService {
     const u = new URL(url);
     const urlParams = new URLSearchParams(u.search);
     const videoId = urlParams.get('v');
-    return videoId ? videoId : '';
+    if(videoId)
+      return videoId
+  else if(url?.startsWith("https://youtu.be/"))
+      return u.pathname.substring(1).trimEnd() // Remove leading '/' to get the video ID
+  else
+      console.log("Invalid URL", url)
+      return '' 
   }
 }
 
