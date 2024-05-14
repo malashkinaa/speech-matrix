@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { WordListComponent } from '../word-list/word-list.component';
@@ -17,8 +17,9 @@ import { StatsSummary } from '../../interfaces/stats';
     imports: [SearchBarComponent, WordListComponent, WordUsageComponent, SpinnerComponent, CommonModule, NgIf]
 })
 
-export class RightPanelComponent {
+export class RightPanelComponent implements OnChanges {
   constructor(private sharedDataService: SharedDataService, private spinnerService: SpinnerService) {}
+
   words: ListItem[] = [];
   filteredWords: ListItem[] = [];
   selectedWord: string = "";
@@ -40,6 +41,13 @@ export class RightPanelComponent {
       this.isLoading = isLoading;
     })
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.filterWords.length === 0) {
+      this.selectedWord = "" //reset
+    }
+  }
+
   filterWords(input: string) {
     this.typedWord = input
     if(this.words && input){
@@ -49,6 +57,7 @@ export class RightPanelComponent {
     }
     else {
       this.filteredWords = [];
+      this.handleWordSelected("") //reset
     }
   }
   handleWordSelected(word: string){

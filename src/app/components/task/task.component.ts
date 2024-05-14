@@ -3,8 +3,8 @@ import { StatsService } from '../../services/stats.service';
 import { Transcript } from '../../interfaces/trancript';
 import { SignalRService } from '../../services/signalr.service';
 import { SharedDataService } from '../../services/shared-data.service';
-import { ActivatedRoute } from '@angular/router';
 import { SpinnerService } from '../../services/spinner.service';
+
 
 @Component({
   selector: 'app-task',
@@ -14,38 +14,27 @@ import { SpinnerService } from '../../services/spinner.service';
   styleUrl: './task.component.css'
 })
 
+
 export class TaskComponent {
   constructor(
     private statsService: StatsService,
     private signalRService: SignalRService,
     private sharedDataService: SharedDataService,
-    private route: ActivatedRoute,
     private spinnerService : SpinnerService
   ){}
   url: string = '';
   externalVParam = '';
-  // ngOnInit() {
-  //   this.route.queryParamMap.subscribe((params) => {
-  //     const vParam = params.get('v');
-  //     if (vParam) {
-  //       this.externalVParam = vParam;
-  //       this.url = `https://www.youtube.com/watch?v=${vParam}`;
-  //       this.addTask();
-  //     }
-  //   });
-  // }
   addTask(url: string) {
     this.url = url;
     this.setEmptyStatsSummary(this.url);
     console.log('addTask', this.url);
+    this.spinnerService.set(true);
     this.statsService
       .getIdByMediaUrl(this.url) // to do: extract video id from url
       .subscribe((id: string) => {
         console.log('searchTranscript', id);
-        this.spinnerService.set(true);
         if (id && id.length > 0) {
-          this.setStatsSummary(id);
-          this.spinnerService.set(false);
+          this.setStatsSummary(id, () => this.spinnerService.set(false));
         } else {
           this.statsService
             .createTranscript(this.url)
@@ -53,8 +42,7 @@ export class TaskComponent {
               console.log('createTranscript', res);
               this.signalRService.startConnection();
               this.signalRService.addMessageListener<string>((id) => {
-                this.setStatsSummary(id);
-                this.spinnerService.set(false);
+                this.setStatsSummary(id, () => this.spinnerService.set(false))
               });
             });
         }
@@ -65,10 +53,16 @@ export class TaskComponent {
       this.statsService.emptyStatsSummary(url)
     );
   }
-  setStatsSummary(id: string): void {
+  setStatsSummary(id: string, callback?: Function): void {
     console.log('saveStatsSummary', id);
     this.statsService.getStatsSummary(id).subscribe((statsSummary) => {
       this.sharedDataService.setStatsSummary(statsSummary);
+      if(callback) callback();
     });
   }
 }
+
+
+
+
+

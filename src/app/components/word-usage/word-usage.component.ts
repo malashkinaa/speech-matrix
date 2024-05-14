@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { SharedDataService } from '../../services/shared-data.service';
 import { Link, Stats, StatsSummary } from '../../interfaces/stats';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './word-usage.component.html',
   styleUrl: './word-usage.component.css'
 })
-export class WordUsageComponent {
+export class WordUsageComponent implements OnChanges {
   constructor(private sharedDataService: SharedDataService) {}
   @Input() selectedWord: string = ""
   @Input() typedWord: string = ""
@@ -30,12 +30,14 @@ export class WordUsageComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.selectedWord || this.typedWord){
+    //if(this.selectedWord || this.typedWord){
       this.updateSelectedLinks(this.statsSummary);
-    }
+    //}
   }
-  
+
   updateSelectedLinks(statsSummary: StatsSummary) {
+    this.selectedLinks = []
+    if (this.selectedWord.length === 0) return
     this.selectedLinks = statsSummary.stats
     .find(stats => {
       return stats.word === this.selectedWord 
