@@ -5,6 +5,8 @@ ul {
   height: 92px;
   overflow: auto; /* Enable scrollbars when content overflows */
   background-color: #ffffff;
+  resize: vertical; /* Allow vertical resizing */
+  overflow: auto; /* Ensure scrollbars appear when resized */
 }
 
 li {
@@ -14,12 +16,12 @@ li {
 
 button {
   /* margin-right: 3px;
-  margin-bottom: 3px; */
+    margin-bottom: 3px; */
   font-size: 13px;
   background-color: #ffffff;
   color: #000000;
   /* font-style: italic; */
-  font-weight: bolder;
+  /* font-weight: bolder; */
   border: none;
   padding: 5px 10px;
   cursor: pointer;
@@ -30,4 +32,11 @@ button {
 
 button:hover {
   color: #0365a7;
+}
+
+.no-data {
+  text-align: center;
+  margin-left: 12px;
+  padding: 20px 0;
+  color: #999; /* Adjust color as needed */
 }

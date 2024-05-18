@@ -7,7 +7,7 @@ import { SharedDataService } from '../../services/shared-data.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './word-list.component.html',
-  styleUrl: './word-list.component.css'
+  styleUrl: './word-list.component.css',
 })
 export class WordListComponent {
   @Input() filteredWords: any[] = [];
@@ -17,4 +17,3 @@ export class WordListComponent {
     this.onWordSelected.emit(word);
   }
 }
-
