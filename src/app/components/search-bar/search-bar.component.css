@@ -1,15 +1,13 @@
 #word {
-    width: calc(100% - 20px); 
-    padding: 10px; 
-    font-size: 1em; 
-    border: none; 
-    background-color: #1C2938; 
-    color: white; 
-    margin-bottom: 10px; 
-  }
-  
+  width: calc(100% - 20px);
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  background-color: #1c2938;
+  color: white;
+  margin-bottom: 10px;
+}
 
-  #word::placeholder {
-    color: #ffffffb3; 
-  }
-  
+#word::placeholder {
+  color: #ffffffb3;
+}

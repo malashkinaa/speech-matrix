@@ -1,16 +1,35 @@
 ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0;
-    margin: 0;
-    height: 92px;
-    overflow: auto; /* Enable scrollbars when content overflows */
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+  height: 92px;
+  overflow: auto; /* Enable scrollbars when content overflows */
+  background-color: #ffffff;
 }
 
 li {
-    display: inline; /* Display list items horizontally */
+  display: inline; /* Display list items horizontally */
+  margin-right: 10px;
 }
 
 button {
-    margin-right: 10px; 
-    margin-bottom: 10px; 
+  /* margin-right: 10px;
+    margin-bottom: 10px; */
+  font-size: 13px; /* Decreased font size */
+  background-color: #ffffff;
+  color: #174869;
+  /* font-style: italic; */
+  font-weight: bolder;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: auto; /* Allow the width to adjust based on content */
+  height: 26px;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+button:hover {
+  /* background-color: #ffffff;  */
+  color: #0365a7;
+  /* font-weight: bolder; */
 }
