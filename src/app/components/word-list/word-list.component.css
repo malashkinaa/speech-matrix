@@ -9,13 +9,13 @@ ul {
 
 li {
   display: inline; /* Display list items horizontally */
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 button {
-  /* margin-right: 10px;
-    margin-bottom: 10px; */
-  font-size: 13px; /* Decreased font size */
+  /* margin-right: 3px;
+  margin-bottom: 3px; */
+  font-size: 13px;
   background-color: #ffffff;
   color: #174869;
   /* font-style: italic; */
@@ -29,7 +29,5 @@ button {
 }
 
 button:hover {
-  /* background-color: #ffffff;  */
   color: #0365a7;
-  /* font-weight: bolder; */
 }
