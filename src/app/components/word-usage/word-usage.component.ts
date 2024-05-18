@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SharedDataService } from '../../services/shared-data.service';
 import { Link, Stats, StatsSummary } from '../../interfaces/stats';
 import { CommonModule } from '@angular/common';
@@ -8,60 +8,67 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './word-usage.component.html',
-  styleUrl: './word-usage.component.css'
+  styleUrl: './word-usage.component.css',
 })
 export class WordUsageComponent implements OnChanges {
   constructor(private sharedDataService: SharedDataService) {}
-  @Input() selectedWord: string = ""
-  @Input() typedWord: string = ""
-  selectedLinks: Link[] | undefined = []
+  @Input() selectedWord: string = '';
+  @Input() typedWord: string = '';
+  selectedLinks: Link[] | undefined = [];
   statsSummary: StatsSummary = {
     url: '',
-    stats: []
-  }
+    stats: [],
+  };
 
-  stats: Stats[] = []
+  stats: Stats[] = [];
   ngOnInit(): void {
     this.sharedDataService.statsSummary$.subscribe((statsSummary) => {
-      console.log('WordUsageComponent.ngOnInit', statsSummary)
-      this.updateSelectedLinks(statsSummary)
-      this.statsSummary = statsSummary
+      console.log('WordUsageComponent.ngOnInit', statsSummary);
+      this.updateSelectedLinks(statsSummary);
+      this.statsSummary = statsSummary;
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     //if(this.selectedWord || this.typedWord){
-      this.updateSelectedLinks(this.statsSummary);
+    this.updateSelectedLinks(this.statsSummary);
     //}
   }
 
   updateSelectedLinks(statsSummary: StatsSummary) {
-    this.selectedLinks = []
-    if (this.selectedWord.length === 0) return
+    this.selectedLinks = [];
     this.selectedLinks = statsSummary.stats
-    .find(stats => {
-      return stats.word === this.selectedWord 
-     // || (this.typedWord.length > 0 && stats.links.some(link => link.text.includes(this.typedWord)));
-    })
-    ?.links
-    .filter(links => links !== undefined)
-    .flat();
-  }
-  
-  handleLinkClick(link: Link) {
-    this.sharedDataService.setCurLink(link)
+      .find(
+        (stats) =>
+          this.selectedWord.length === 0 || stats.word === this.selectedWord
+      )
+      ?.links.filter(
+        (link) => link !== undefined && link.text.includes(this.typedWord)
+      )
+      .flat();
+    console.log(
+      'WordUsageComponent.updateSelectedLinks',
+      this.typedWord,
+      this.selectedWord,
+      this.selectedLinks
+    );
   }
 
-   formatTime(seconds: number): string {
+  handleLinkClick(link: Link) {
+    this.sharedDataService.setCurLink(link);
+  }
+
+  formatTime(seconds: number): string {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
 
     if (hours > 0) {
-        return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds
+        .toString()
+        .padStart(2, '0')}`;
     } else {
-        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
-}
-
+  }
 }
