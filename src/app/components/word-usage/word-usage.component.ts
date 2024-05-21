@@ -2,13 +2,14 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SharedDataService } from '../../services/shared-data.service';
 import { Link, Stats, StatsSummary } from '../../interfaces/stats';
 import { CommonModule } from '@angular/common';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-word-usage',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './word-usage.component.html',
   styleUrl: './word-usage.component.css',
+  imports: [CommonModule, SpinnerComponent],
 })
 export class WordUsageComponent implements OnChanges {
   constructor(private sharedDataService: SharedDataService) {}
@@ -38,20 +39,18 @@ export class WordUsageComponent implements OnChanges {
   updateSelectedLinks(statsSummary: StatsSummary) {
     this.selectedLinks = [];
     this.selectedLinks = statsSummary.stats
-      .find(
-        (stats) =>
-          this.selectedWord.length === 0 || stats.word === this.selectedWord
+      .filter(
+        (stat) =>
+          this.selectedWord.length === 0 || stat.word === this.selectedWord
       )
-      ?.links.filter(
-        (link) => link !== undefined && link.text.includes(this.typedWord)
-      )
-      .flat();
-    console.log(
-      'WordUsageComponent.updateSelectedLinks',
-      this.typedWord,
-      this.selectedWord,
-      this.selectedLinks
-    );
+      .flatMap((stat) =>
+        stat.links.filter(
+          (link) => link !== undefined && link.text.includes(this.typedWord)
+        )
+      );
+    console.log('WordUsageComponent.typedWord', this.typedWord);
+    console.log('WordUsageComponent.selectedWord', this.selectedWord);
+    console.log('WordUsageComponent.selectedLinks', this.selectedLinks);
   }
 
   handleLinkClick(link: Link) {

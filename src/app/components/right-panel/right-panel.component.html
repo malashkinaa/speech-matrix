@@ -1,4 +1,13 @@
-<app-search-bar (filterChange)="filterWords($event)" *ngIf="!isLoading"></app-search-bar>
-<app-word-list [filteredWords]="filteredWords" (onWordSelected)="handleWordSelected($event)"></app-word-list>
-<app-spinner></app-spinner>
-<app-word-usage [selectedWord]="selectedWord" [typedWord]="typedWord"></app-word-usage>
+<app-search-bar
+  (filterChange)="filterWords($event)"
+  *ngIf="!isLoading"
+></app-search-bar>
+<app-word-list
+  [filteredWords]="filteredWords"
+  (onWordSelected)="handleWordSelected($event)"
+  *ngIf="!isLoading"
+></app-word-list>
+<app-word-usage
+  [selectedWord]="selectedWord"
+  [typedWord]="typedWord"
+></app-word-usage>

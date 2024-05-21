@@ -33,7 +33,7 @@ export class RightPanelComponent implements OnChanges {
   filteredWords: ListItem[] = [];
   selectedWord: string = '';
   typedWord: string = '';
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.sharedDataService.statsSummary$.subscribe(
