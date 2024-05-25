@@ -10,22 +10,20 @@ import { StatsService } from '../../services/stats.service';
   standalone: true,
   imports: [TaskComponent, YoutubeComponent],
   templateUrl: './left-panel.component.html',
-  styleUrl: './left-panel.component.css'
+  styleUrl: './left-panel.component.css',
 })
-
 export class LeftPanelComponent implements OnInit {
   constructor(
     private statsService: StatsService,
     private sharedDataService: SharedDataService
-  ){}
+  ) {}
   curVideoId: string = '';
-  statsSummary: StatsSummary = {url: '', stats: [] }
-  ngOnInit(): void{
+  statsSummary: StatsSummary = { url: '', stats: [] };
+  ngOnInit(): void {
     this.sharedDataService.statsSummary$.subscribe((statsSummary) => {
       console.log('StatsComponent.ngOnInit', statsSummary);
       this.statsSummary = statsSummary;
       this.curVideoId = this.statsService.extractVideoId(this.statsSummary.url);
-    })
+    });
   }
 }
-

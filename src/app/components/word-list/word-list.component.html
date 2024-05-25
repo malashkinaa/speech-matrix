@@ -1,6 +1,6 @@
 <ul #listContainer>
   <ng-container *ngIf="filteredWords.length === 0">
-    <li class="no-data">You need type a word/letter to view word list</li>
+    <li class="no-data">You need to start typying to view word list</li>
   </ng-container>
   <li *ngFor="let word of filteredWords" (click)="fillInputValue(word.id)">
     <button>{{ word.name }}</button>
