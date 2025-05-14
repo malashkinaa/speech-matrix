@@ -4,24 +4,23 @@ import { Transcript } from '../../interfaces/trancript';
 import { SignalRService } from '../../services/signalr.service';
 import { SharedDataService } from '../../services/shared-data.service';
 import { SpinnerService } from '../../services/spinner.service';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { StatsSummary } from '../../interfaces/stats';
 
 @Component({
   selector: 'app-task',
   standalone: true,
   imports: [],
   templateUrl: './task.component.html',
-  styleUrl: './task.component.css'
+  styleUrl: './task.component.css',
 })
-
-
 export class TaskComponent {
   constructor(
     private statsService: StatsService,
     private signalRService: SignalRService,
     private sharedDataService: SharedDataService,
-    private spinnerService : SpinnerService
-  ){}
+    private spinnerService: SpinnerService
+  ) {}
   url: string = '';
   externalVParam = '';
   addTask(url: string) {
@@ -42,11 +41,32 @@ export class TaskComponent {
               console.log('createTranscript', res);
               this.signalRService.startConnection();
               this.signalRService.addMessageListener<string>((id) => {
-                this.setStatsSummary(id, () => this.spinnerService.set(false))
+                this.setStatsSummary(id, () => this.spinnerService.set(false));
               });
             });
         }
       });
+  }
+  addTask2(url: string) {
+    this.url = url;
+    if (!this.url) return;
+    this.setEmptyStatsSummary(this.url);
+    this.spinnerService.set(true);
+    this.setStatsSummary2(this.url, () => {
+      this.spinnerService.set(false);
+    });
+  }
+  setStatsSummary2(id: string, callback?: Function): void {
+    this.statsService.getStatsSummary2(id).subscribe({
+      next: (statsSummary: StatsSummary) => {
+        this.sharedDataService.setStatsSummary(statsSummary);
+        if (callback) callback();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+        if (callback) callback();
+      },
+    });
   }
   setEmptyStatsSummary(url: string): void {
     this.sharedDataService.setStatsSummary(
@@ -57,12 +77,7 @@ export class TaskComponent {
     console.log('saveStatsSummary', id);
     this.statsService.getStatsSummary(id).subscribe((statsSummary) => {
       this.sharedDataService.setStatsSummary(statsSummary);
-      if(callback) callback();
+      if (callback) callback();
     });
   }
 }
-
-
-
-
-

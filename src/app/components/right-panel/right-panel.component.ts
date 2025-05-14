@@ -8,6 +8,8 @@ import { ListItem } from '../../interfaces/listitem';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { SpinnerService } from '../../services/spinner.service';
 import { StatsSummary } from '../../interfaces/stats';
+import { WordCloudComponent } from '../word-cloud/word-cloud.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-right-panel',
@@ -15,12 +17,14 @@ import { StatsSummary } from '../../interfaces/stats';
   templateUrl: './right-panel.component.html',
   styleUrl: './right-panel.component.css',
   imports: [
+    MatTabsModule,
     SearchBarComponent,
     WordListComponent,
     WordUsageComponent,
     SpinnerComponent,
     CommonModule,
     NgIf,
+    WordCloudComponent,
   ],
 })
 export class RightPanelComponent implements OnChanges {

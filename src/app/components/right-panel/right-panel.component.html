@@ -1,15 +1,25 @@
 <app-spinner></app-spinner>
-<app-search-bar
-  (filterChange)="filterWords($event)"
-  *ngIf="!isLoading"
-></app-search-bar>
-<app-word-list
-  [filteredWords]="filteredWords"
-  (onWordSelected)="handleWordSelected($event)"
-  *ngIf="!isLoading"
-></app-word-list>
-<app-word-usage
-  [selectedWord]="selectedWord"
-  [typedWord]="typedWord"
-  *ngIf="!isLoading"
-></app-word-usage>
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab label="Word usage">
+    <section class="left">
+      <app-word-usage
+        [selectedWord]="selectedWord"
+        [typedWord]="typedWord"
+        *ngIf="!isLoading"
+      ></app-word-usage>
+    </section>
+    <section class="right">
+      <app-search-bar
+        (filterChange)="filterWords($event)"
+        *ngIf="!isLoading"
+      ></app-search-bar>
+      <app-word-list
+        [filteredWords]="filteredWords"
+        (onWordSelected)="handleWordSelected($event)"
+        *ngIf="!isLoading"
+      ></app-word-list>
+    </section>
+  </mat-tab>
+  <mat-tab label="Word cloud"><app-word-cloud></app-word-cloud></mat-tab>
+  <mat-tab label="Topic detection">Content 3</mat-tab>
+</mat-tab-group>

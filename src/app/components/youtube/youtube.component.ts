@@ -3,7 +3,6 @@ import { YouTubePlayer } from '@angular/youtube-player';
 import { Link } from '../../interfaces/stats';
 import { SharedDataService } from '../../services/shared-data.service';
 
-
 @Component({
   selector: 'app-youtube',
   standalone: true,
@@ -12,19 +11,17 @@ import { SharedDataService } from '../../services/shared-data.service';
   styleUrl: './youtube.component.css',
 })
 export class YoutubeComponent {
-  constructor (private sharedDataService: SharedDataService) {}
+  constructor(private sharedDataService: SharedDataService) {}
   @Input() videoId: string = '';
   @ViewChild('ytplayer') player: YouTubePlayer | undefined;
-
 
   ngOnInit() {
     this.sharedDataService.curLink$.subscribe(this.setCurLink.bind(this));
   }
 
-
-  setCurLink(curLink: Link){
+  setCurLink(curLink: Link) {
     if (this.player && this.videoId !== '') {
-      this.player.seekTo(curLink.start, true);
+      this.player.seekTo(curLink.time, true);
     }
   }
 }

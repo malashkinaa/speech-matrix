@@ -10,7 +10,6 @@ import { env } from '../app.config';
 export class StatsService {
   constructor(private http: HttpClient) {}
 
-
   emptyStatsSummary(url: string): StatsSummary {
     return { url: url, stats: [] };
   }
@@ -20,6 +19,12 @@ export class StatsService {
       `${env.s2tServiceURL}/transcripts/${id}/stats?minfreq=1`
     );
   }
+  getStatsSummary2(mediaUrl: string): Observable<StatsSummary> {
+    const id: string = this.extractVideoId(mediaUrl);
+    const url: string = `${env.processingFunctionURL}/GetYoutubeStats?v=${id}&minfreq=1`;
+    return this.http.get<StatsSummary>(url);
+  }
+
   searchTranscript(url: string): Observable<any> {
     console.log('searchTranscript', url);
     return this.http.post<any>(
@@ -58,15 +63,12 @@ export class StatsService {
     const u = new URL(url);
     const urlParams = new URLSearchParams(u.search);
     const videoId = urlParams.get('v');
-    if(videoId)
-      return videoId
-  else if(url?.startsWith("https://youtu.be/"))
-      return u.pathname.substring(1).trimEnd() // Remove leading '/' to get the video ID
-  else
-      console.log("Invalid URL", url)
-      return '' 
+    if (videoId) return videoId;
+    else if (url?.startsWith('https://youtu.be/'))
+      return u.pathname
+        .substring(1)
+        .trimEnd(); // Remove leading '/' to get the video ID
+    else console.log('Invalid URL', url);
+    return '';
   }
 }
-
-
-
