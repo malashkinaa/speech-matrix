@@ -4,14 +4,14 @@ ul {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 418px;
+  height: 560px;
   overflow: auto;
 }
 
 button {
   display: flex;
   align-items: flex-start;
-  width: 80%;
+  width: 94%;
   height: 60px;
   margin-bottom: 12px;
   margin-left: 12px;
@@ -22,6 +22,7 @@ button {
   background-color: #ffffff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-size: 14px;
+  text-align: left;
   cursor: pointer;
   transition: background-color 0.3s;
 }

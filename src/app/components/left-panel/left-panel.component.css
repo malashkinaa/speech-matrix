@@ -1,4 +1,7 @@
 input {
-    width: 60%;
+  width: 60%;
 }
 
+section {
+  height: 450px;
+}
