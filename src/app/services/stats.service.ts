@@ -9,6 +9,7 @@ import { env } from '../app.config';
 })
 export class StatsService {
   constructor(private http: HttpClient) {}
+  curVideoId: string = '';
 
   emptyStatsSummary(url: string): StatsSummary {
     return { url: url, stats: [] };
@@ -20,8 +21,8 @@ export class StatsService {
     );
   }
   getStatsSummary2(mediaUrl: string): Observable<StatsSummary> {
-    const id: string = this.extractVideoId(mediaUrl);
-    const url: string = `${env.processingFunctionURL}/GetYoutubeStats?v=${id}&minfreq=1`;
+    this.curVideoId = this.extractVideoId(mediaUrl);
+    const url: string = `${env.processingFunctionURL}/GetYoutubeStats?v=${this.curVideoId}&minfreq=1`;
     return this.http.get<StatsSummary>(url);
   }
 
@@ -65,9 +66,8 @@ export class StatsService {
     const videoId = urlParams.get('v');
     if (videoId) return videoId;
     else if (url?.startsWith('https://youtu.be/'))
-      return u.pathname
-        .substring(1)
-        .trimEnd(); // Remove leading '/' to get the video ID
+      return u.pathname.substring(1).trimEnd();
+    // Remove leading '/' to get the video ID
     else console.log('Invalid URL', url);
     return '';
   }

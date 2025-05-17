@@ -25,7 +25,7 @@ export class TaskComponent {
   externalVParam = '';
   addTask(url: string) {
     this.url = url;
-    this.setEmptyStatsSummary(this.url);
+    this.setEmptyStatsSummary();
     console.log('addTask', this.url);
     this.spinnerService.set(true);
     this.statsService
@@ -50,14 +50,21 @@ export class TaskComponent {
   addTask2(url: string) {
     this.url = url;
     if (!this.url) return;
-    this.setEmptyStatsSummary(this.url);
+    this.setCurId();
+    this.setEmptyStatsSummary();
     this.spinnerService.set(true);
-    this.setStatsSummary2(this.url, () => {
+    this.setStatsSummary2(() => {
       this.spinnerService.set(false);
     });
   }
-  setStatsSummary2(id: string, callback?: Function): void {
-    this.statsService.getStatsSummary2(id).subscribe({
+
+  setCurId(): void {
+    const id = this.statsService.extractVideoId(this.url);
+    this.sharedDataService.setCurId(id);
+  }
+
+  setStatsSummary2(callback?: Function): void {
+    this.statsService.getStatsSummary2(this.url).subscribe({
       next: (statsSummary: StatsSummary) => {
         this.sharedDataService.setStatsSummary(statsSummary);
         if (callback) callback();
@@ -68,7 +75,8 @@ export class TaskComponent {
       },
     });
   }
-  setEmptyStatsSummary(url: string): void {
+  setEmptyStatsSummary(): void {
+    const url = this.url;
     this.sharedDataService.setStatsSummary(
       this.statsService.emptyStatsSummary(url)
     );
