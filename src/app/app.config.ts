@@ -23,4 +23,5 @@ export const env = {
   signalRServiceURL: 'https://s2t-broadcast.azurewebsites.net/api',
   s2tServiceURL: 'https://speech2text-web.azurewebsites.net',
   processingFunctionURL: 'https://speech2text-processing.azurewebsites.net/api',
+  wordCloudServiceURL: 'https://s2t-website.azurewebsites.net',
 };

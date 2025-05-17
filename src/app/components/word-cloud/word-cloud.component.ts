@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedDataService } from '../../services/shared-data.service';
 import { Link } from '../../interfaces/stats';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { env } from '../../app.config';
 
 @Component({
   selector: 'app-word-cloud',
@@ -24,7 +25,7 @@ export class WordCloudComponent implements OnInit, OnDestroy {
     this.sharedDataService.curId$.subscribe((videoId) => {
       this.videoId = videoId;
       this.safeIframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        `https://s2t-website.azurewebsites.net/?v=${this.videoId}&noplayer&src=sm`
+        `${env.wordCloudServiceURL}?v=${this.videoId}&noplayer&src=sm`
       );
     });
   }
